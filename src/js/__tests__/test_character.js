@@ -1,6 +1,6 @@
 import { Character } from '../Character';
 
-const validCharacters = [
+const validNames = [
     { name: 'Dana', type: 'Swordsman' },
     { name: 'Masha', type: 'Magician' },
     { name: 'Vova', type: 'Bowerman' },
@@ -13,13 +13,13 @@ const invalidNames = [
 ];
 
 const invalidTypes = [
-    { type: 'InvalidType', errorMessage: 'There is no such character' },
+    { type: 'KonVPalto', errorMessage: 'There is no such character' },
     { type: '', errorMessage: 'There is no such character' },
 ];
 
-describe('Character class - data-driven tests', () => {
-    test.each(validCharacters)(
-        'should create character with valid data %o',
+describe('Tests for the Character class', () => {
+    test.each(validNames)(
+        'create an instance with valid data %o',
         ({ name, type }) => {
             const char = new Character(name, type);
             expect(char.health).toBe(100);
@@ -28,14 +28,14 @@ describe('Character class - data-driven tests', () => {
     );
 
     test.each(invalidNames)(
-        'should throw error for invalid name "%s"',
+        'create instance with invalid name "%s"',
         ({ name, errorMessage }) => {
             expect(() => new Character(name, 'Swordsman')).toThrow(errorMessage);
         }
     );
 
     test.each(invalidTypes)(
-        'should throw error for invalid type "%s"',
+        'create instance with invalid type "%s"',
         ({ type, errorMessage }) => {
             expect(() => new Character('ValidName', type)).toThrow(errorMessage);
         }
